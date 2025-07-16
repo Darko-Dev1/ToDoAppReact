@@ -29,17 +29,18 @@ const SearchTab = ({ searching }) => {
 
     }, [invalue])
 
-    useEffect(()=> {
+    useEffect(() => {
         if (!searching) {
             return
         };
 
         setfulldata(searching)
+
     }, [])
 
     return (
         <>
-            <header className='bg-black w-full flex flex-col text-white p-4 items-center'>
+            <header className='bg-black w-full flex flex-col text-white p-4 items-center focus-within:sticky focus-within:top-0'>
                 <div>
                     <div className='border flex '>
                         <input type="text" className='outline-0 p-1' placeholder='search here' value={invalue} onChange={(e) => { setinvalue(e.target.value); e.target.value === "" ? setshow("none") : setshow("block") }} />
@@ -59,9 +60,21 @@ const SearchTab = ({ searching }) => {
                     <h1 id='infosearch'></h1>
                 </div>
             </header>
-            <main className='bg-gray-500 p-4  grid gap-3 '>
-                
-                {fulldata.map((e) => <div key={e.id} className='flex justify-between p-5 border'>{e.title} <h1>{e.completed.toString()}</h1></div>)}
+            <main className='bg-gray-500 p-4 grid grid-cols-2 gap-3 text-white flex'>
+                <div id="yes">
+                    {fulldata.map((e) => {
+                        if(e.completed === true) {
+                            return(<div key={e.id} className='flex justify-between p-5 border'>{e.title} <h1>{e.completed.toString()}</h1></div>);
+                        } 
+                    })}
+                </div>
+                <div id="no">
+                    {fulldata.map((e) => {
+                        if(e.completed === false) {
+                            return(<div key={e.id} className='flex justify-between p-5 border'>{e.title} <h1>{e.completed.toString()}</h1></div>);
+                        } 
+                    })}
+                </div>
             </main>
         </>
 

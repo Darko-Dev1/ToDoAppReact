@@ -11,7 +11,7 @@ function App() {
       try {
         const res = await fetch("https://jsonplaceholder.typicode.com/todos");
         const resaw = await res.json();
-        setvalueJson(resaw);
+        setvalueJson(resaw)
       } catch (err) {
         setError("Failed to fetch data");
       } finally {
