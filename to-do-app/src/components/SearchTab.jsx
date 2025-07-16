@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { use } from 'react';
 import { FaSearch } from "react-icons/fa";
 
 const SearchTab = ({ searching }) => {
@@ -10,6 +9,7 @@ const SearchTab = ({ searching }) => {
     const [recentResults, setrecentResults] = useState([])
     const [show, setshow] = useState("none")
     const [fulldata, setfulldata] = useState([])
+    const [toTrue, settoTrue] = useState(false)
 
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const SearchTab = ({ searching }) => {
                 <div>
                     <div className='border flex '>
                         <input type="text" className='outline-0 p-1' placeholder='search here' value={invalue} onChange={(e) => { setinvalue(e.target.value); e.target.value === "" ? setshow("none") : setshow("block") }} />
-                        <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white") }} onClick={() => { document.getElementById("infosearch").innerHTML = "Search Result For: " + "<bold>" + document.querySelector('input').value + "</bold>" }}>
+                        <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white") }} onClick={() => { document.getElementById("infosearch").innerHTML = "Search Result For: " + "<b>" + document.querySelector('input').value + "</b>" }}>
                             <FaSearch fill={collor} className='transition' />
                         </button>
                     </div>
@@ -61,19 +61,36 @@ const SearchTab = ({ searching }) => {
                 </div>
             </header>
             <main className='bg-gray-500 p-4 grid grid-cols-2 gap-3 text-white flex'>
-                <div id="yes">
-                    {fulldata.map((e) => {
-                        if(e.completed === true) {
-                            return(<div key={e.id} className='flex justify-between p-5 border'>{e.title} <h1>{e.completed.toString()}</h1></div>);
-                        } 
-                    })}
+                <div id="yes" className=' border-green-500 border-4'>
+                    {
+                        fulldata.map((e) => {
+                            if (e.completed === true) {
+                                return (<div key={e.id} className='flex justify-between p-5 border-b-2'>{e.title} <h1>{e.completed.toString()}</h1></div>);
+                            }
+                        })
+                    }
                 </div>
-                <div id="no">
-                    {fulldata.map((e) => {
-                        if(e.completed === false) {
-                            return(<div key={e.id} className='flex justify-between p-5 border'>{e.title} <h1>{e.completed.toString()}</h1></div>);
-                        } 
-                    })}
+                <div id="no" className='border-red-500 border-4'>
+                    {
+                        fulldata
+                            .filter((e) => !e.completed)
+                            .map((e) => (
+                                <div
+                                    key={e.id}
+                                    id={e.id}
+                                    className='flex justify-between p-5 border-b-2 cursor-pointer'
+                                    onClick={() => {
+                                        const id = e.id;
+                                        const updated = fulldata.map((i) =>
+                                            i.id === id ? { ...i, completed: true } : i
+                                        );
+                                        setfulldata(updated); // ✅ updates local state
+                                    }}
+                                >
+                                    {e.title} <h1>{e.completed.toString()}</h1>
+                                </div>
+                            ))
+                    }
                 </div>
             </main>
         </>
