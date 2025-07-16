@@ -1,27 +1,37 @@
 import { useEffect, useState } from 'react'
 import SearchTab from './components/searchTab'
 
-
 function App() {
-  const [count, setCount] = useState(0)
+  const [valueJson, setvalueJson] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-
     const jsonapi = async () => {
-      const res = await fetch("https://jsonplaceholder.typicode.com/todos")
-      const resaw = await res.json()
-      console.log(resaw)
-    }
-
-    jsonapi()
-
-  }, [])
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+        const resaw = await res.json();
+        setvalueJson(resaw);
+      } catch (err) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    jsonapi();
+  }, []);
 
   return (
-    <> 
-      <SearchTab></SearchTab>
+    <>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <SearchTab searching={valueJson} />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
