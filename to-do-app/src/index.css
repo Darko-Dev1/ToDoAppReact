@@ -1,9 +1,2 @@
 @import "tailwindcss";
 
-#searchresult {
-    left: 50%;
-    top: 2%;
-    transform: translate(-50%, 18%);
-    width: 50%;
-
-}

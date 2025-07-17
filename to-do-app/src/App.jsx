@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import SearchTab from './components/searchTab'
+import Footer from './components/Footer';
 
 function App() {
   const [valueJson, setvalueJson] = useState([]);
@@ -28,7 +29,11 @@ function App() {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <SearchTab searching={valueJson} />
+        <>
+          <SearchTab searching={valueJson} />
+          <Footer></Footer>
+        </>
+
       )}
     </>
   );
