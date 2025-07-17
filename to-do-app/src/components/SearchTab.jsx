@@ -45,7 +45,20 @@ const SearchTab = ({ searching }) => {
                     <div className='flex flex-col items-center' >
                         <div className='border relative flex justify-between w-[280px]'>
                             <input type="text" className='outline-0 p-1 bg-black w-[100%]' placeholder='search here' value={invalue} onChange={(e) => { setinvalue(e.target.value); e.target.value === "" ? setshow("none") : setshow("block") }} />
-                            <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white") }} onClick={() => { document.getElementById("infosearch").innerHTML = "Search Result For: " + "<b>" + document.querySelector('input').value + "</b>" }}>
+                            <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white") }} onClick={() => {
+                                document.getElementById("infosearch").innerHTML = "Search Result For: " + "<b>" + document.querySelector('input').value + "</b>";
+                                const serachResult = fulldata.filter((value) => {
+                                    return value.title.includes(document.querySelector('input').value)
+                                })
+                                serachResult.forEach((e) => {
+                                    document.getElementById(e.id).style.backgroundColor = "blue"
+                                    setTimeout(() => {
+                                        document.getElementById(e.id).style.backgroundColor = "transparent"
+                                    }, 5000)
+                                })
+                                setshow("none")
+
+                            }}>
                                 <FaSearch fill={collor} className='transition' />
                             </button>
                         </div>
@@ -53,10 +66,23 @@ const SearchTab = ({ searching }) => {
                             <h1 id='infosearch'></h1>
                         </div>
                         <div id='searchresult' className='relative bg-black ' style={{ display: show }}>
-
-                            <ol className=''>
+                            <ol className='w-xs'>
                                 {recentResults.map((e, i) => {
-                                    return (<li className='p-2 hover:border transition cursor-pointer w-[100%]' key={e.id}>{i + 1}. {e.title}</li>)
+                                    return (<li className='p-2 hover:border transition cursor-pointer overflow-hidden' onClick={
+                                        (z) => {
+                                            console.log(z.target)
+                                            let valueLi = z.target.getAttribute("value")
+                                            console.log(valueLi)
+                                            console.log(document.getElementById(valueLi))
+
+                                            document.getElementById(valueLi).scrollIntoView({ behavior: 'smooth', block: 'center', })
+                                            document.getElementById(valueLi).style.backgroundColor = "blue"
+                                            setTimeout(() => {
+                                                document.getElementById(valueLi).style.backgroundColor = "transparent"
+                                            }, 2000)
+                                        }
+                                    }
+                                        key={e.id}><b className='pr-[70%] relative whitespace-pre p-2' value={e.id}>{i + 1}. {e.title}</b></li>)
                                 })}
                             </ol>
                         </div>
@@ -81,14 +107,14 @@ const SearchTab = ({ searching }) => {
                                 <div
                                     key={e.id}
                                     id={e.id}
-                                    className='flex justify-between p-5 border-b-2 cursor-pointer'
-                                    onClick={() => {
+                                    className='flex justify-between p-5 border-b-2 cursor-pointer transition'
+                                    onClick={(z) => {
                                         const id = e.id;
+                                        console.log(z.target)
                                         const updated = fulldata.map((i) =>
                                             i.id === id ? { ...i, completed: false } : i
                                         );
                                         setfulldata(updated);
-                                        console.log("works")
                                     }}
                                 >
                                     {e.title} <h1>{e.completed.toString()}</h1>
@@ -107,7 +133,7 @@ const SearchTab = ({ searching }) => {
                                 <div
                                     key={e.id}
                                     id={e.id}
-                                    className='flex justify-between p-5 border-b-2 cursor-pointer'
+                                    className='flex justify-between p-5 border-b-2 cursor-pointer transition'
                                     onClick={() => {
                                         const id = e.id;
                                         const updated = fulldata.map((i) =>

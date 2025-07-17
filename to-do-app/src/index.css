@@ -1,2 +1,26 @@
 @import "tailwindcss";
 
+li{
+
+    z-index: 1000;
+}
+
+li::after {
+    content: "";
+    width: 5%;
+    position: absolute;
+    height: 92%;
+    left: 94.69%;
+    top: 5%;
+    background-color: rgba(0, 0, 0, 0.877);
+    box-shadow:  -10px 0px 1px 10px rgba(0, 0, 0, 0.11);
+
+}
+ol {
+    border: white solid 1px;
+}
+
+b {
+    z-index: 0;
+    position: relative;
+}
