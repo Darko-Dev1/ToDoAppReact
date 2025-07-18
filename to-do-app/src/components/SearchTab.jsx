@@ -37,15 +37,14 @@ const SearchTab = ({ searching }) => {
         setfulldata(searching)
 
     }, [])
-
     return (
         <>
             <header className='bg-black w-full flex flex-col text-white p-4 items-center focus-within:sticky z-100 focus-within:top-0 transition'>
                 <div >
                     <div className='flex flex-col items-center' >
                         <div className='border relative flex justify-between w-[280px]'>
-                            <input type="text" className='outline-0 p-1 bg-black w-[100%]' placeholder='search here' value={invalue} onChange={(e) => { setinvalue(e.target.value); e.target.value === "" ? setshow("none") : setshow("block") }} />
-                            <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white") }} onClick={() => {
+                            <input type="text" className='outline-0 p-1 bg-black w-[100%]' placeholder='search here' value={invalue} onClick={()=> {setshow("block") }} onChange={(e) => { setinvalue(e.target.value); e.target.value === "" ? setshow("none") : setshow("block") }} />
+                            <button type="submit" id='searchBtn' className='p-2 bg-black border-l-2 border-0 hover:bg-white transition' onMouseOver={() => { setcollor("red") }} onMouseLeave={() => { setcollor("white");  }} onClick={() => {
                                 document.getElementById("infosearch").innerHTML = "Search Result For: " + "<b>" + document.querySelector('input').value + "</b>";
                                 const serachResult = fulldata.filter((value) => {
                                     return value.title.includes(document.querySelector('input').value)
@@ -92,9 +91,7 @@ const SearchTab = ({ searching }) => {
 
             </header>
             <button className='absolute w-[20%] bg-black text-white m-3 left-[50%] -translate-[55%] my-8 p-1 rounded'>Create a Task</button>
-            <main className='bg-gray-500 p-4 grid grid-cols-2 gap-3 text-white py-15'>
-
-
+            <main className='bg-gray-500 p-4 grid grid-cols-2 gap-3 text-white py-15' onMouseDown={() => {setshow("none") }}>
 
                 <div id="yes" className=' border-green-500 border-4 h-[70vh] relative overflow-auto'>
                     <div id="title" className='bg-black text-center p-2 sticky top-0 '>
