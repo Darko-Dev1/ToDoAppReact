@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import SearchTab from './components/searchTab'
-import Footer from './components/Footer';
+import SearchTab from './components/SearchTab.jsx'
+import Footer from './components/Footer.jsx';
 
 function App() {
   const [valueJson, setvalueJson] = useState([]);
