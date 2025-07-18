@@ -92,11 +92,11 @@ const SearchTab = ({ searching }) => {
                 </div>
 
             </header>
-            <button className='absolute w-[20%] bg-black text-white m-3 left-[50%] -translate-[55%] my-8 p-1 rounded' onClick={()=> {showCreateMenu === "none" ? setshowCreateMenu("block") : setshowCreateMenu("none"); console.log(showCreateMenu)}}>Create a Task</button>
+            <button className='absolute w-[20%] bg-black text-white m-3 left-[50%] -translate-[55%] my-8 p-1 rounded' onClick={()=> {showCreateMenu === "none" ? setshowCreateMenu("block") : setshowCreateMenu("none");}}>Create a Task</button>
             <CreateTask show={showCreateMenu}></CreateTask>
-            <main className='bg-gray-500 p-14 grid md:grid-cols-2 gap-3  text-white py-15 gird-cols-1' onMouseDown={() => {setshow("none") }}>
+            <main className='bg-gray-500 p-14 grid md:grid-cols-2 gap-3  text-white py-15 gird-cols-1 gird-direction-' onMouseDown={() => {setshow("none") }}>
 
-                <div id="yes" className=' border-green-500 border-4 h-[70vh] relative overflow-auto'>
+                <div id="yes" className='order-2 md:order-1 border-green-500 border-4 h-[70vh] relative overflow-auto'>
                     <div id="title" className='bg-black text-center p-2 sticky top-0 '>
                         <h1 className='text-4xl'>Tasks Done:</h1>
                     </div>
@@ -122,7 +122,7 @@ const SearchTab = ({ searching }) => {
                             ))
                     }
                 </div>
-                <div id="no" className='border-red-500 border-4 h-[70vh] relative overflow-auto'>
+                <div id="no" className='order-1 md:order-2 border-red-500 border-4 h-[70vh] relative overflow-auto'>
                     <div id="title" className='bg-black text-center p-2 sticky top-0 '>
                         <h1 className='text-4xl'>Tasks Not Done:</h1>
                     </div>
@@ -134,7 +134,7 @@ const SearchTab = ({ searching }) => {
                                     key={e.id}
                                     id={e.id}
                                     className='flex justify-between p-5 border-b-2 cursor-pointer transition'
-                                    onClick={() => {
+                                    onClick={(z) => {
                                         const id = e.id;
                                         const updated = fulldata.map((i) =>
                                             i.id === id ? { ...i, completed: true } : i
