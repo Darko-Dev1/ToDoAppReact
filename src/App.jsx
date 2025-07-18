@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import SearchTab from './components/searchTab'
+import SearchTab from './components/SearchTab.jsx'
 import Footer from './components/Footer';
 
 function App() {
