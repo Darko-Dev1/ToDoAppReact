@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
+import CreateTask from './CreateTask';
 
 const SearchTab = ({ searching }) => {
 
@@ -10,6 +11,7 @@ const SearchTab = ({ searching }) => {
     const [show, setshow] = useState("none")
     const [fulldata, setfulldata] = useState([])
     const [toTrue, settoTrue] = useState(false)
+    const [showCreateMenu, setshowCreateMenu] = useState("none")
 
 
     useEffect(() => {
@@ -90,8 +92,9 @@ const SearchTab = ({ searching }) => {
                 </div>
 
             </header>
-            <button className='absolute w-[20%] bg-black text-white m-3 left-[50%] -translate-[55%] my-8 p-1 rounded'>Create a Task</button>
-            <main className='bg-gray-500 p-4 grid grid-cols-2 gap-3 text-white py-15' onMouseDown={() => {setshow("none") }}>
+            <button className='absolute w-[20%] bg-black text-white m-3 left-[50%] -translate-[55%] my-8 p-1 rounded' onClick={()=> {showCreateMenu === "none" ? setshowCreateMenu("block") : setshowCreateMenu("none"); console.log(showCreateMenu)}}>Create a Task</button>
+            <CreateTask show={showCreateMenu}></CreateTask>
+            <main className='bg-gray-500 p-14 grid md:grid-cols-2 gap-3  text-white py-15 gird-cols-1' onMouseDown={() => {setshow("none") }}>
 
                 <div id="yes" className=' border-green-500 border-4 h-[70vh] relative overflow-auto'>
                     <div id="title" className='bg-black text-center p-2 sticky top-0 '>
